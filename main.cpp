@@ -1,131 +1,70 @@
 #include <iostream>
-#include <vector>
-#include <limits>
+#include <string>
 using namespace std;
 
-class Student {
-public:
-    int id;
-    string name;
-    float gpa;
+void showIntro() {
+    cout << "=====================================" << endl;
+    cout << "     WELCOME TO ABU-TECH SYSTEM      " << endl;
+    cout << "=====================================" << endl;
+    cout << "Innovating the future with technology" << endl << endl;
+}
 
-    Student(int id, string name, float gpa) {
-        this->id = id;
-        this->name = name;
-        this->gpa = gpa;
-    }
+void showMenu() {
+    cout << "----------- MAIN MENU -------------" << endl;
+    cout << "1. About ABU-TECH" << endl;
+    cout << "2. Services" << endl;
+    cout << "3. Contact Us" << endl;
+    cout << "0. Exit" << endl;
+    cout << "----------------------------------" << endl;
+    cout << "Select an option: ";
+}
 
-    void display() {
-        cout << "ID: " << id << ", Ism: " << name << ", GPA: " << gpa << endl;
-    }
-};
+void about() {
+    cout << "\nABU-TECH is a leading tech company specializing in:\n";
+    cout << "- Software Development\n";
+    cout << "- AI Solutions\n";
+    cout << "- Web and Mobile Apps\n\n";
+}
 
-class StudentManager {
-private:
-    vector<Student> students;
+void services() {
+    cout << "\nOur services include:\n";
+    cout << "1. Custom Software Development\n";
+    cout << "2. Machine Learning Projects\n";
+    cout << "3. IT Consulting\n\n";
+}
 
-public:
-    void addStudent() {
-        int id;
-        string name;
-        float gpa;
-
-        cout << "Student ID sini kiriting: ";
-        cin >> id;
-        cout << "Student ismini kiriting: ";
-        cin.ignore();
-        getline(cin, name);
-        cout << "Student GPA (baho) sini kiriting: ";
-        cin >> gpa;
-
-        students.push_back(Student(id, name, gpa));
-        cout << "Student muvaffaqiyatli qo'shildi.\n";
-    }
-
-    void removeStudent() {
-        int id;
-        cout << "O'chirish uchun student ID sini kiriting: ";
-        cin >> id;
-
-        bool found = false;
-        for (auto it = students.begin(); it != students.end(); ++it) {
-            if (it->id == id) {
-                students.erase(it);
-                found = true;
-                cout << "Student o'chirildi.\n";
-                break;
-            }
-        }
-
-        if (!found) {
-            cout << "Bunday ID bilan student topilmadi.\n";
-        }
-    }
-
-    void displayAll() {
-        if (students.empty()) {
-            cout << "Studentlar ro'yxati bo'sh.\n";
-            return;
-        }
-
-        cout << "Studentlar ro'yxati:\n";
-        for (Student s : students) {
-            s.display();
-        }
-    }
-
-    void topStudent() {
-        if (students.empty()) {
-            cout << "Hech qanday student yo'q.\n";
-            return;
-        }
-
-        float maxGPA = -1.0;
-        for (Student s : students) {
-            if (s.gpa > maxGPA)
-                maxGPA = s.gpa;
-        }
-
-        cout << "Eng yuqori GPA ga ega student(lar):\n";
-        for (Student s : students) {
-            if (s.gpa == maxGPA)
-                s.display();
-        }
-    }
-};
+void contact() {
+    cout << "\nContact us at:\n";
+    cout << "Email: info@abu-tech.com\n";
+    cout << "Phone: +998 90 123 45 67\n\n";
+}
 
 int main() {
-    StudentManager manager;
     int choice;
+    showIntro();
 
-    while (true) {
-        cout << "\n===== Student Boshqaruv Dasturi =====\n";
-        cout << "1. Student qo‘shish\n";
-        cout << "2. Studentni o‘chirish\n";
-        cout << "3. Barcha studentlarni ko‘rish\n";
-        cout << "4. Eng yaxshi student(lar)ni ko‘rish\n";
-        cout << "5. Chiqish\n";
-        cout << "Tanlang: ";
+    do {
+        showMenu();
         cin >> choice;
 
         switch (choice) {
             case 1:
-                manager.addStudent();
+                about();
                 break;
             case 2:
-                manager.removeStudent();
+                services();
                 break;
             case 3:
-                manager.displayAll();
+                contact();
                 break;
-            case 4:
-                manager.topStudent();
+            case 0:
+                cout << "\nThank you for visiting ABU-TECH!" << endl;
                 break;
-            case 5:
-                cout << "Dastur tugadi.\n";
-                return 0;
             default:
-                cout << "Noto‘g‘ri tanlov. Qayta urinib ko‘ring.\n";
+                cout << "\nInvalid option. Please try again.\n";
         }
-    }
+
+    } while (choice != 0);
+
+    return 0;
 }
