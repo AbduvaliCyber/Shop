@@ -1,70 +1,78 @@
 #include <iostream>
+#include <vector>
 #include <string>
 using namespace std;
 
-void showIntro() {
-    cout << "=====================================" << endl;
-    cout << "     WELCOME TO ABU-TECH SYSTEM      " << endl;
-    cout << "=====================================" << endl;
-    cout << "Innovating the future with technology" << endl << endl;
+struct Mahsulot {
+    string nomi;
+    double narxi;
+    int miqdori;
+};
+
+vector<Mahsulot> magazin;
+
+void mahsulotQoshish() {
+    Mahsulot m;
+    cout << "Mahsulot nomi: ";
+    cin >> m.nomi;
+    cout << "Narxi: ";
+    cin >> m.narxi;
+    cout << "Miqdori: ";
+    cin >> m.miqdori;
+    magazin.push_back(m);
+    cout << "Mahsulot muvaffaqiyatli qo'shildi!\n";
 }
 
-void showMenu() {
-    cout << "----------- MAIN MENU -------------" << endl;
-    cout << "1. About ABU-TECH" << endl;
-    cout << "2. Services" << endl;
-    cout << "3. Contact Us" << endl;
-    cout << "0. Exit" << endl;
-    cout << "----------------------------------" << endl;
-    cout << "Select an option: ";
+void roYxatniKorish() {
+    cout << "\n--- Magazin Mahsulotlari ---\n";
+    for (size_t i = 0; i < magazin.size(); ++i) {
+        cout << i + 1 << ". " << magazin[i].nomi
+             << " | Narxi: " << magazin[i].narxi
+             << " | Miqdori: " << magazin[i].miqdori << endl;
+    }
 }
 
-void about() {
-    cout << "\nABU-TECH is a leading tech company specializing in:\n";
-    cout << "- Software Development\n";
-    cout << "- AI Solutions\n";
-    cout << "- Web and Mobile Apps\n\n";
-}
+void mahsulotQidirish() {
+    string nom;
+    cout << "Qidirilayotgan mahsulot nomi: ";
+    cin >> nom;
+    bool topildi = false;
 
-void services() {
-    cout << "\nOur services include:\n";
-    cout << "1. Custom Software Development\n";
-    cout << "2. Machine Learning Projects\n";
-    cout << "3. IT Consulting\n\n";
-}
+    for (const auto& m : magazin) {
+        if (m.nomi == nom) {
+            cout << "Topildi: " << m.nomi
+                 << " | Narxi: " << m.narxi
+                 << " | Miqdori: " << m.miqdori << endl;
+            topildi = true;
+            break;
+        }
+    }
 
-void contact() {
-    cout << "\nContact us at:\n";
-    cout << "Email: info@abu-tech.com\n";
-    cout << "Phone: +998 90 123 45 67\n\n";
+    if (!topildi) {
+        cout << "Mahsulot topilmadi.\n";
+    }
 }
 
 int main() {
-    int choice;
-    showIntro();
+    int tanlov;
 
     do {
-        showMenu();
-        cin >> choice;
+        cout << "\n1. Mahsulot qo'shish\n";
+        cout << "2. Ro'yxatni ko'rish\n";
+        cout << "3. Mahsulot qidirish\n";
+        cout << "0. Chiqish\n";
+        cout << "Tanlovingiz: ";
+        cin >> tanlov;
 
-        switch (choice) {
-            case 1:
-                about();
-                break;
-            case 2:
-                services();
-                break;
-            case 3:
-                contact();
-                break;
-            case 0:
-                cout << "\nThank you for visiting ABU-TECH!" << endl;
-                break;
-            default:
-                cout << "\nInvalid option. Please try again.\n";
+        switch (tanlov) {
+            case 1: mahsulotQoshish(); break;
+            case 2: roYxatniKorish(); break;
+            case 3: mahsulotQidirish(); break;
+            case 0: cout << "Dastur yakunlandi.\n"; break;
+            default: cout << "Noto‘g‘ri tanlov!\n";
         }
 
-    } while (choice != 0);
+    } while (tanlov != 0);
 
     return 0;
 }
